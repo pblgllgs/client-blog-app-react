@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import './Post.css';
 
 const PUBLISH_POST = gql`
@@ -37,7 +37,9 @@ export default function Post({
     id,
     isMyProfile,
 }) {
+    // eslint-disable-next-line no-unused-vars
     const [publishPost, { data, loading }] = useMutation(PUBLISH_POST);
+    // eslint-disable-next-line no-unused-vars
     const [unpublishPost, { data: unpublishData, loading: unpublishLoading }] =
         useMutation(UNPUBLISH_POST);
     const formatedDate = new Date(Number(date));
