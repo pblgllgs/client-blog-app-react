@@ -31,7 +31,7 @@ export default function Profile() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     const { profile } = data;
-    console.log(profile)
+
     return (
         <div>
             <div
