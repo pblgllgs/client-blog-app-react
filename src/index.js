@@ -4,10 +4,26 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+    uri: 'https://blog-app-backend-graphql.herokuapp.com/',
+});
+
+const authLink = setContext((_, { headers }) => {
+    const token = localStorage.getItem('token');
+    return {
+        headers: {
+            ...headers,
+            authorization: token,
+            // authorization: token ? `Bearer ${token}` : '',
+        },
+    };
+});
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/graphql',
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
 });
 
